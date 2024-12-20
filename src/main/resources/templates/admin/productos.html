@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Productos - AndesTextil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://portal.andina.pe/EDPfotografia3/Thumbnail/2022/05/04/000865686W.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #343a40;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #212529;
+        }
+
+        table.table {
+            margin-top: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table.table th, table.table td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-top: 1px solid #dee2e6;
+        }
+
+        table.table th {
+            background-color: #f8f9fa;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        table.table td {
+            color: #6c757d;
+        }
+
+        .btn-primary {
+            background-color: #4A90E2;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-warning {
+            background-color: #FFA500;
+            border: none;
+        }
+
+        .btn-danger {
+            background-color: #FF4C4C;
+            border: none;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn {
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+		.button-container {
+		    text-align: right; /* Alinea el botón a la derecha */
+		    margin-top: auto; /* Empuja el botón hacia abajo */
+		}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Productos - AndesTextil</h1>
+        <a href="/producto/nuevo" class="btn btn-primary mb-3">Agregar Producto</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="producto : ${productos}">
+                    <td th:text="${producto.id}"></td>
+                    <td th:text="${producto.nombre}"></td>
+                    <td th:text="${producto.descripcion}"></td>
+                    <td th:text="${producto.precio}"></td>
+                    <td>
+                        <a th:href="@{/producto/editar/{id}(id=${producto.id})}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{/producto/eliminar/{id}(id=${producto.id})}" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+		<div class="button-container">
+		           <a th:href="@{/admin/dashboard}" class="btn btn-secondary">Volver</a>
+		       </div>
+    </div>
+    <footer>
+        © 2024 AndesTextil. Todos los derechos reservados.
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login - AndesTextil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: url('https://portal.andina.pe/EDPfotografia3/Thumbnail/2022/05/04/000865686W.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .login-container {
+            max-width: 400px;
+            margin-top: 100px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+<div class="container login-container">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h3 class="mb-0">Login - AndesTextil</h3>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope mr-2"></i>Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock mr-2"></i>Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt mr-2"></i>Login</button>
+            </form>
+
+            <!-- Botón de Registro -->
+            <div class="text-center mt-3">
+                <a th:href="@{/register}" class="btn btn-secondary btn-block">
+                    <i class="fas fa-user-plus mr-2"></i>Registrarse
+                </a>
+            </div>
+
+            <div class="text-center mt-3">
+                <a th:href="@{'/'}" class="btn btn-light">
+                    <i class="fas fa-arrow-left mr-2"></i>Salir
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensajes de error y éxito -->
+    <div th:if="${param.error}" class="alert alert-danger mt-3" id="error-alert">Correo o contraseña incorrectos.</div>
+    <div th:if="${success}" class="alert alert-success mt-3" id="success-alert" th:text="${success}"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Ocultar alertas después de 3 segundos
+    window.onload = function() {
+        setTimeout(function() {
+            const errorAlert = document.getElementById('error-alert');
+            const successAlert = document.getElementById('success-alert');
+            if (errorAlert) {
+                errorAlert.style.display = 'none';
+            }
+            if (successAlert) {
+                successAlert.style.display = 'none';
+            }
+        }, 3000);
+    };
+</script>
+</body>
+</html>

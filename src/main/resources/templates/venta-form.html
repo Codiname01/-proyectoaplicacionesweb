@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Venta - AndesTextil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://portal.andina.pe/EDPfotografia3/Thumbnail/2022/05/04/000865686W.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="overlay">
+    <div class="form-container">
+        <h1 th:text="${venta.id} != null ? 'Editar Venta' : 'Agregar Venta'">Formulario de Venta</h1>
+        <form th:action="@{/venta/guardar}" th:object="${venta}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+                <label for="usuario">Usuario</label>
+                <select class="form-control" id="usuario" th:field="*{usuario.id}" required>
+                    <option value="" selected>Seleccionar Usuario</option>
+                    <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre}" 
+                            th:selected="${usuario.id} == ${venta.usuario?.id}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="precioTotal">Precio Total</label>
+                <input type="number" class="form-control" id="precioTotal" th:field="*{total}" placeholder="Precio Total">
+            </div>
+
+            <div class="form-group">
+                <label for="fechaVenta">Fecha de Venta</label>
+                <input type="date" class="form-control" id="fechaVenta" th:field="*{fecha}" required>
+            </div>
+
+            <h5>Items de Venta</h5>
+
+            <!-- Generar items dinámicamente -->
+            <div id="itemsContainer">
+                <div th:each="item, iterStat : ${venta.items}">
+                    <div class="item-form">
+                        <div class="form-group">
+                            <label for="producto">Producto</label>
+                            <select class="form-control producto-select" th:field="*{items[__${iterStat.index}__].producto.id}" required>
+                                <option value="" disabled selected>Seleccionar Producto</option>
+                                <option th:each="producto : ${productos}" th:value="${producto.id}" th:data-precio="${producto.precio}" th:text="${producto.nombre}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cantidad">Cantidad</label>
+                            <input type="number" class="form-control cantidad-input" th:field="*{items[__${iterStat.index}__].cantidad}" placeholder="Cantidad" min="1" value="1" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-secondary" id="agregarProductoBtn">Agregar Producto</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a th:href="@{/admin/ventas}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+<footer>
+    © 2024 AndesTextil. Todos los derechos reservados.
+</footer>
+
+<script>
+    // Establecer la fecha actual en el campo de fecha
+    document.addEventListener('DOMContentLoaded', function() {
+        var today = new Date();
+        var day = String(today.getDate()).padStart(2, '0');
+        var month = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0
+        var year = today.getFullYear();
+        var formattedDate = year + '-' + month + '-' + day;
+
+        document.getElementById('fechaVenta').value = formattedDate;
+    });
+</script>
+</body>
+</html>

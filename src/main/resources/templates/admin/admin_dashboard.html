@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard de Administrador - AndesTextil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            background: url('https://portal.andina.pe/EDPfotografia3/Thumbnail/2022/05/04/000865686W.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #343a40;
+            min-height: 100vh;
+            position: relative; /* Para que el overlay se posicione correctamente */
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            height: 100vh; /* Altura completa */
+            position: absolute; /* Se sitúa sobre el contenido */
+            top: 0; /* Posición del overlay */
+            left: 0;
+            right: 0;
+            z-index: 1; /* Poner el overlay encima */
+        }
+        .content {
+            position: relative; /* Posicionar el contenido */
+            z-index: 2; /* Sitúa el contenido por encima del overlay */
+            padding: 20px; /* Espaciado interno */
+        }
+	
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="content">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">AndesTextil Admin</a>
+            <div class="ml-auto">
+                <a href="/" class="btn btn-secondary mt-3">Ir a la Tienda</a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-secondary mt-3">Cerrar Sesión</a>
+                <form id="logout-form" th:action="@{/logout}" method="post" style="display: none;">
+                    
+                </form>
+            </div>
+        </nav>
+        <div class="container mt-4">
+            <h1 class="mb-4 text-white">Dashboard de Administrador</h1>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h2 class="h5 mb-0"><i class="fas fa-cogs mr-2"></i>Gestión</h2>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="/admin/usuarios" class="text-decoration-none"><i class="fas fa-users mr-2"></i>Gestionar Usuarios</a></li>
+                            <li class="list-group-item"><a href="/admin/productos" class="text-decoration-none"><i class="fas fa-box mr-2"></i>Gestionar Productos</a></li>
+                         
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h2 class="h5 mb-0"><i class="fas fa-chart-bar mr-2"></i>Reportes</h2>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="/admin/reporte-usuarios" class="text-decoration-none"><i class="fas fa-file-alt mr-2"></i>Reporte de Usuarios</a></li>
+                            <li class="list-group-item"><a href="/admin/reporte-productos" class="text-decoration-none"><i class="fas fa-file-alt mr-2"></i>Reporte de Productos</a></li>
+                            <li class="list-group-item"><a href="/admin/listaventas/reporte" class="text-decoration-none"><i class="fas fa-file-invoice-dollar mr-2"></i>Reporte de Ventas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-warning text-white">
+                            <h2 class="h5 mb-0"><i class="fas fa-shopping-cart mr-2"></i>Ventas</h2>
+                        </div>
+                        <div class="card-body">
+                            <a href="/admin/listaventas" class="btn btn-primary mr-2">
+                                <i class="fas fa-list mr-1"></i> Lista de Ventas
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

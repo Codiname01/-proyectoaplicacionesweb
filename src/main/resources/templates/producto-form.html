@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Producto - AndesTextil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://portal.andina.pe/EDPfotografia3/Thumbnail/2022/05/04/000865686W.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-container {
+            background-color: white; /* Fondo blanco para el formulario */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px; /* Ancho máximo del formulario */
+            width: 100%; /* Ancho del formulario en dispositivos más pequeños */
+        }
+        .form-title {
+            margin-bottom: 20px;
+        }
+	
+    </style>
+</head>
+<body>
+<div class="overlay">
+    <div class="form-container">
+		  <h1 th:text="${producto.id} != null ? 'Editar Producto' : 'Agregar Producto'">Formulario de Producto</h1>
+		  <form th:action="@{${producto.id} != null ? '/producto/guardar' : '/producto/guardar'}" th:object="${producto}" method="post" enctype="multipart/form-data">
+		             <input type="hidden" th:field="*{id}"/>
+		             <div class="form-group">
+		                 <label for="nombre">Nombre</label>
+		                 <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Nombre del Producto">
+		             </div>
+		             <div class="form-group">
+		                 <label for="descripcion">Descripción</label>
+		                 <textarea class="form-control" id="descripcion" th:field="*{descripcion}" placeholder="Descripción del Producto"></textarea>
+		             </div>
+		             <div class="form-group">
+		                 <label for="precio">Precio</label>
+		                 <input type="number" class="form-control" id="precio" th:field="*{precio}" placeholder="Precio del Producto">
+		             </div>
+		             <div class="form-group">
+		                 <label for="categoria">Categoría</label>
+		                 <select class="form-control" id="categoria" name="categoriaId">
+		                     <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nombre}" 
+		                             th:selected="${categoria.id} == ${producto.categoria?.id}">Seleccionar Categoría</option>
+		                 </select>
+		             </div>
+					 <div class="form-group">
+					                <label for="imagenUrl">URL de la Imagen</label>
+					                <input type="text" class="form-control" id="imagenUrl" th:field="*{imagenUrl}" placeholder="Ingrese la URL de la imagen">
+					                <small class="form-text text-muted">Ingrese la URL de la imagen para el producto.</small>
+					            </div>
+
+		             <button type="submit" class="btn btn-primary">Guardar</button>
+					<a th:href="@{/admin/productos}" class="btn btn-secondary">Cancelar</a>
+		         </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
